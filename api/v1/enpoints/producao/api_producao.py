@@ -8,10 +8,11 @@ import psycopg2
 def scrape_producao (base_url, start_year=1970, end_year=2023):
     chrome_options = Options()
     chrome_options.add_argument("--headless")  
-    service = Service('C:/Users/.../Downloads/chromedriver-win64/chromedriver/chromedriver.exe') 
+    service = Service('C:/chromedriver-win64/chromedriver.exe') 
 
     driver = webdriver.Chrome(service=service, options=chrome_options)
-
+    #driver = webdriver.Chrome(ChromeDriverManager().install())
+    
     all_data = []
 
     for year in range(start_year, end_year + 1):
@@ -47,7 +48,7 @@ def save_producao(data, db_name='postgres', db_user='scraping', db_password='123
         
         # Cria a tabela se não existir
         cursor.execute("""
-        CREATE TABLE IF NOT EXISTS prod (
+        CREATE TABLE IF NOT EXISTS producao (
             id SERIAL PRIMARY KEY,
             ano INT,
             chave TEXT,

@@ -2,16 +2,18 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
+from webdriver_manager.chrome import ChromeDriverManager
 import time
 import psycopg2
 
 def scrape_processamento(base_url, xpath, start_year=1970, end_year=2023):
     chrome_options = Options()
     chrome_options.add_argument("--headless")  
-    service = Service('C:/Users/.../Downloads/chromedriver-win64/chromedriver/chromedriver.exe') # Colocar o caminho do WebDriver ou usar o modo direto
+    service = Service('C:/chromedriver-win64/chromedriver.exe') # Colocar o caminho do WebDriver ou usar o modo direto
 
     driver = webdriver.Chrome(service=service, options=chrome_options)
-
+    #driver = webdriver.Chrome(ChromeDriverManager().install())
+    
     all_data = []
 
     for year in range(start_year, end_year + 1):
